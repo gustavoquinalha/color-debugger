@@ -54,13 +54,14 @@
   flex-basis: 300px;
   min-width: 300px;
   max-width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   // padding: 20px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border-right: 1px solid rgba(0,0,0,.3);
   position: relative;
   background: rgba(0,0,0,.1);
+  overflow-y: auto;
 }
 
 .right-side {
@@ -200,4 +201,22 @@
 .range-style:active::-moz-range-thumb {
   background: rgba(0,0,0,.9);
   transform: scale(1.2, 1.2);
+}
+
+.arrow-block {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.next-arrow,
+.prev-arrow {
+  margin: 10px;
+  cursor: pointer;
+}
+
+.opa {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
