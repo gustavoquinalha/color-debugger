@@ -25,3 +25,8 @@ $ npm start
 ``` bash
 $ npm run build
 ```
+
+- http://jxnblk.com/shade
+- https://colorable.jxnblk.com/
+- https://monochrome.jxnblk.com/3374ff
+- http://jxnblk.com/hello-color/
