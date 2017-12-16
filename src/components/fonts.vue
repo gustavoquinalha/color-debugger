@@ -1,11 +1,11 @@
 <template lang="html">
-  <div class="container container-content" :style="{ backgroundColor: color1.hex, color: color2.hex}">
+  <div class="container container-content" :style="{ backgroundColor: `rgba(${color1.rgba.r},${color1.rgba.g},${color1.rgba.b},${color1.rgba.a})`, color: `rgba(${color2.rgba.r},${color2.rgba.g},${color2.rgba.b},${color2.rgba.a})`}">
     <div @click="toggleShowLeft" class="open" v-show="!showLeft" v-cloak>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
     </div>
     <!-- leftside -->
      <transition name="slide-fade">
-    <div class="left-side container column padding-top-30" v-show="showLeft" v-cloak :style="{ backgroundColor: color1.hex}">
+    <div class="left-side container column padding-top-30" v-show="showLeft" v-cloak :style="{ backgroundColor: `rgba(${color1.rgba.r},${color1.rgba.g},${color1.rgba.b},${color1.rgba.a})`}">
 <div class="fixed-left">
   <div @click="toggleShowLeft" class="close">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="8" y1="12" x2="16" y2="12"></line></svg>
@@ -93,10 +93,10 @@
             <h1>{{color1.hex}}</h1>
               <input type="text" v-model="color1.hex" name="" value="" class="margin-bottom-10">
               <Slider v-model="color1"  class="margin-bottom-20"/>
-              <input type="range" class="range-style" min="0" max="255" v-model="color1.rgba.r">
-              <input type="range" class="range-style" min="0" max="255" v-model="color1.rgba.g">
-              <input type="range" class="range-style" min="0" max="255" v-model="color1.rgba.b">
-              <input type="range" class="range-style" min="0" max="255" v-model="color1.rgba.a">
+              <input type="range" class="range-style" min="0" max="255" v-model="color1.rgba.r" :change="changeColor(color1)">
+              <input type="range" class="range-style" min="0" max="255" v-model="color1.rgba.g" :change="changeColor(color1)">
+              <input type="range" class="range-style" min="0" max="255" v-model="color1.rgba.b" :change="changeColor(color1)">
+              <input type="range" class="range-style" min="0" max="1" step="0.1" v-model="color1.rgba.a" :change="changeColor(color1)">
           </div>
 
           <div class="flex-basis-300 container column flex-grow-1 block-content-colors">
@@ -104,10 +104,10 @@
             <h1>{{color2.hex}}</h1>
               <input type="text" v-model="color2.hex" name="" value="" class="margin-bottom-10">
               <Slider v-model="color2" class="margin-bottom-20"/>
-              <input type="range" class="range-style" min="0" max="255" v-model="color2.rgba.r">
-              <input type="range" class="range-style" min="0" max="255" v-model="color2.rgba.g">
-              <input type="range" class="range-style" min="0" max="255" v-model="color2.rgba.b">
-              <input type="range" class="range-style" min="0" max="255" v-model="color2.rgba.a">
+              <input type="range" class="range-style" min="0" max="255" v-model="color2.rgba.r" :change="changeColor(color2)">
+              <input type="range" class="range-style" min="0" max="255" v-model="color2.rgba.g" :change="changeColor(color2)">
+              <input type="range" class="range-style" min="0" max="255" v-model="color2.rgba.b" :change="changeColor(color2)">
+              <input type="range" class="range-style" min="0" max="1" step="0.1"  v-model="color2.rgba.a" :change="changeColor(color2)">
           </div>
         </div>
         <div class="container align-center">
@@ -252,11 +252,17 @@ export default {
       this.showLeft = !this.showLeft
     },
     reverseColor () {
-      const newColor1 = this.color1.hex
-      const newColor2 = this.color2.hex
-
-      this.color1.hex = newColor2
-      this.color2.hex = newColor1
+      const newColor1 = this.color1.rgba
+      const newColor2 = this.color2.rgba
+      this.color1.rgba = newColor2
+      this.color2.rgba = newColor1
+    },
+    rgbaToHexa (rgba) {
+      const hex = `#${('0' + parseInt(rgba.r).toString(16)).slice(-2)}${('0' + parseInt(rgba.g).toString(16)).slice(-2)}${('0' + parseInt(rgba.b).toString(16)).slice(-2)}`
+      return hex
+    },
+    changeColor (color) {
+      color.hex = this.rgbaToHexa(color.rgba)
     }
   },
   computed: {
