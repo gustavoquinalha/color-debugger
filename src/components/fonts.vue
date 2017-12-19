@@ -183,7 +183,7 @@
         </div>
       </div>
 
-      <div class="container min-height align-center reset" >
+      <div class="container min-height align-center reset">
         <div class="text-style flex-basis-700 text-align-left">
           <div class="">
             <h1 :style="{fontSize: heading1 + 'px'}" class="margin-bottom-20">{{yourText}} </h1>
@@ -368,6 +368,7 @@
   .container-size-headings {
     width: 100%
   }
+
   .reset {
     background: #fff;
     color: #000
